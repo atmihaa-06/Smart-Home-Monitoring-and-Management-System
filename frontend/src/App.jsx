@@ -46,9 +46,6 @@ export default function App() {
 
   const [homeState, setHomeState] = useState(emptyState);
 
-  const [ports, setPorts] = useState([]);
-
-  const [selectedPort, setSelectedPort] = useState("");
 
 
   // =====================================================
@@ -202,166 +199,20 @@ useEffect(() => {
 
 
   // =====================================================
-  // GET COM PORTS
-  // =====================================================
-
-  const fetchPorts = async () => {
-
-    try {
-
-      const response = await fetch(
-        `${API}/api/ports`
-      );
-
-
-      if (!response.ok) {
-
-        throw new Error(
-          "Could not retrieve ports"
-        );
-
-      }
-
-
-      const data = await response.json();
-
-
-      setPorts(
-        data.ports || []
-      );
-
-
-    } catch (error) {
-
-      console.log(
-        "Could not get COM ports:",
-        error
-      );
-
-
-      setPorts([]);
-
-    }
-
-  };
-
-
-  // =====================================================
   // START POLLING
   // =====================================================
 
-  useEffect(() => {
+ useEffect(() => {
+  fetchState();
 
+  const stateInterval = setInterval(() => {
     fetchState();
+  }, 1000);
 
-    fetchPorts();
-
-
-    const stateInterval =
-      setInterval(() => {
-
-        fetchState();
-
-      }, 500);
-
-
-    const portInterval =
-      setInterval(() => {
-
-        fetchPorts();
-
-      }, 2000);
-
-
-    return () => {
-
-      clearInterval(
-        stateInterval
-      );
-
-      clearInterval(
-        portInterval
-      );
-
-    };
-
-  }, []);
-
-
-  // =====================================================
-  // CONNECT ESP32
-  // =====================================================
-
-  const connectESP32 = async () => {
-
-    if (!selectedPort) {
-
-      alert(
-        "Please select a COM port."
-      );
-
-      return;
-
-    }
-
-
-    try {
-
-      const response = await fetch(
-
-        `${API}/api/connect`,
-
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body: JSON.stringify({
-            port: selectedPort
-          })
-        }
-
-      );
-
-
-      const data =
-        await response.json();
-
-
-      if (!data.success) {
-
-        alert(
-          data.error ||
-          "Connection failed"
-        );
-
-        return;
-
-      }
-
-
-      await fetchState();
-
-
-    } catch (error) {
-
-      console.error(
-        "ESP32 connection error:",
-        error
-      );
-
-
-      alert(
-        "Could not connect to Flask backend."
-      );
-
-    }
-
+  return () => {
+    clearInterval(stateInterval);
   };
-
+}, []);
 
   // =====================================================
   // SEND COMMAND TO ESP32
@@ -446,40 +297,6 @@ useEffect(() => {
     }
 
   };
-
-
-  // =====================================================
-  // DISCONNECT ESP32
-  // =====================================================
-
-  const disconnectESP32 = async () => {
-
-    try {
-
-      await fetch(
-
-        `${API}/api/disconnect`,
-
-        {
-          method: "POST"
-        }
-
-      );
-
-
-      await fetchState();
-
-
-    } catch (error) {
-
-      console.log(
-        "Disconnect error"
-      );
-
-    }
-
-  };
-
 
   // =====================================================
   // UI
@@ -648,136 +465,38 @@ useEffect(() => {
             ================================================= */}
 
         <section className="hardware-panel">
+  <div>
+    <p className="panel-label">
+      HARDWARE BRIDGE
+    </p>
 
-          <div>
+    <h2>
+      ESP32 Connection
+    </h2>
 
-            <p className="panel-label">
+    <p className="panel-description">
+      {homeState.connected
+        ? "ESP32 is connected through the Smartie Homie bridge."
+        : "Waiting for the Smartie Homie bridge to connect the ESP32."}
+    </p>
+  </div>
 
-              HARDWARE BRIDGE
+  <div className="connection-controls">
+    <div
+      className={
+        homeState.connected
+          ? "bridge-status bridge-online"
+          : "bridge-status"
+      }
+    >
+      <span className="status-dot"></span>
 
-            </p>
-
-
-            <h2>
-
-              ESP32 Connection
-
-            </h2>
-
-
-            <p className="panel-description">
-
-              {
-                homeState.connected
-
-                  ? `Connected through ${homeState.port}`
-
-                  : "Connect the Smartie Homie controller through USB."
-              }
-
-            </p>
-
-          </div>
-
-
-          <div className="connection-controls">
-
-
-            <select
-
-              value={selectedPort}
-
-              onChange={(e) =>
-                setSelectedPort(
-                  e.target.value
-                )
-              }
-
-              disabled={
-                homeState.connected
-              }
-
-            >
-
-              <option value="">
-
-                {
-                  ports.length === 0
-
-                    ? "No ESP32 detected"
-
-                    : "Select COM port"
-                }
-
-              </option>
-
-
-              {ports.map((port) => (
-
-                <option
-
-                  key={port.device}
-
-                  value={port.device}
-
-                >
-
-                  {port.device}
-
-                </option>
-
-              ))}
-
-            </select>
-
-
-            {homeState.connected ? (
-
-              <button
-
-                className="
-                  connect-button
-                  disconnect-button
-                "
-
-                onClick={
-                  disconnectESP32
-                }
-
-              >
-
-                DISCONNECT
-
-              </button>
-
-            ) : (
-
-              <button
-
-                className="
-                  connect-button
-                "
-
-                onClick={
-                  connectESP32
-                }
-
-                disabled={
-                  !selectedPort
-                }
-
-              >
-
-                CONNECT
-
-              </button>
-
-            )}
-
-          </div>
-
-        </section>
-
+      {homeState.connected
+        ? "BRIDGE ONLINE"
+        : "WAITING FOR BRIDGE"}
+    </div>
+  </div>
+</section>
 
         {/* =================================================
             ROOMS
