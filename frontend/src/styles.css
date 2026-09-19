@@ -1,0 +1,1404 @@
+/* =========================================================
+   SMARTIE HOMIE
+   MAIN DASHBOARD STYLES
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   SMART HOME BACKGROUND
+   ========================================================= */
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #f5f5f5;
+
+  overflow-x: hidden;
+
+  background: #05090c;
+}
+
+
+/* ---------------------------------------------------------
+   ACTUAL SMART-HOME IMAGE
+   --------------------------------------------------------- */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  z-index: -2;
+
+  background-image: url("/smart-home-bg.png");
+
+  /*
+     COVER keeps the image proportional.
+     Slightly enlarged so there are no edges/gaps.
+  */
+  background-size: cover;
+
+  /*
+     The original image has the important bulb/house
+     elements slightly toward the upper-right.
+  */
+  background-position: center 42%;
+
+  background-repeat: no-repeat;
+
+  transform: scale(1.015);
+
+  pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   DARK READABILITY LAYER
+   --------------------------------------------------------- */
+
+body::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    /*
+       Keep the center readable for dashboard content
+    */
+    linear-gradient(
+      90deg,
+      rgba(3, 9, 13, 0.62) 0%,
+      rgba(3, 9, 13, 0.38) 45%,
+      rgba(3, 9, 13, 0.48) 100%
+    ),
+
+    /*
+       Slight darkening toward the bottom
+    */
+    linear-gradient(
+      180deg,
+      rgba(3, 8, 12, 0.18) 0%,
+      rgba(3, 8, 12, 0.28) 55%,
+      rgba(3, 8, 12, 0.68) 100%
+    );
+}
+
+
+/* =========================================================
+   DASHBOARD CONTAINER
+   ========================================================= */
+
+.app {
+  position: relative;
+  z-index: 1;
+
+  min-height: 100vh;
+
+  padding: 28px 6%;
+
+  /*
+     IMPORTANT:
+     Do NOT put a solid background here.
+     The room image must remain visible.
+  */
+  background: transparent;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 28px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.subtitle {
+  margin-top: 5px;
+
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  color: #777;
+}
+
+.connection-badge {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 10px 15px;
+
+  border: 1px solid #252a2f;
+  border-radius: 30px;
+
+  background: rgba(10, 15, 18, 0.65);
+
+  color: #888;
+
+  font-size: 11px;
+  letter-spacing: 1px;
+
+  backdrop-filter: blur(10px);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #555;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding: 75px 0 60px;
+}
+
+.eyebrow,
+.panel-label {
+  color: #ff7a00;
+
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin-top: 15px;
+
+  font-size: clamp(52px, 7vw, 100px);
+  line-height: 0.92;
+
+  letter-spacing: -5px;
+}
+
+.hero h1 span {
+  color: #555;
+}
+
+.hero-description {
+  max-width: 480px;
+
+  margin-top: 25px;
+
+  color: #858585;
+
+  line-height: 1.7;
+
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   SYSTEM STATUS
+   ========================================================= */
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 18px 22px;
+
+  min-width: 260px;
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+
+  background: rgba(10, 15, 18, 0.68);
+
+  backdrop-filter: blur(14px);
+}
+
+.status-icon {
+  display: grid;
+  place-items: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: #171a1d;
+
+  color: #666;
+
+  font-size: 18px;
+}
+
+.status-title {
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.status-text {
+  margin-top: 5px;
+
+  color: #666;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   HARDWARE BRIDGE
+   ========================================================= */
+
+.hardware-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 28px;
+
+  background: rgba(10, 15, 18, 0.78);
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+
+  backdrop-filter: blur(14px);
+}
+
+.hardware-panel h2 {
+  margin-top: 8px;
+
+  font-size: 22px;
+}
+
+.panel-description {
+  margin-top: 7px;
+
+  color: #666;
+
+  font-size: 13px;
+}
+
+.connection-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.connection-controls select {
+  min-width: 160px;
+
+  padding: 12px 15px;
+
+  background: rgba(8, 10, 12, 0.9);
+
+  color: #aaa;
+
+  border: 1px solid #292e33;
+  border-radius: 8px;
+
+  outline: none;
+}
+
+.connection-controls select:focus {
+  border-color: #ff7a00;
+}
+
+.connect-button {
+  padding: 12px 22px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #ff7a00;
+
+  color: #080808;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.connect-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 0 18px rgba(255, 122, 0, 0.22);
+}
+
+.connect-button:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
+}
+
+.disconnect-button {
+  background: #25292d;
+
+  color: #aaa;
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  margin: 60px 0 22px;
+}
+
+.section-heading h2 {
+  margin-top: 8px;
+
+  font-size: 30px;
+}
+
+.live-label {
+  color: #555;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   ROOMS
+   ========================================================= */
+
+.rooms-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.room-card {
+  padding: 26px;
+
+  background: rgba(10, 15, 18, 0.80);
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+
+  backdrop-filter: blur(14px);
+
+  transition:
+    border 0.25s,
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+.room-card:hover {
+  border-color: #353b41;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.20);
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+
+  padding-bottom: 22px;
+
+  border-bottom: 1px solid #202428;
+}
+
+.room-number {
+  color: #ff7a00;
+
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.room-header h3 {
+  margin-top: 5px;
+
+  font-size: 24px;
+}
+
+.offline-badge {
+  padding: 6px 9px;
+
+  background: #181b1e;
+
+  border-radius: 5px;
+
+  color: #555;
+
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.online-badge {
+  color: #70a980;
+
+  background: #121b15;
+}
+
+
+/* =========================================================
+   SENSOR GRID
+   ========================================================= */
+
+.sensor-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 1px;
+
+  margin-top: 22px;
+
+  background: #202428;
+
+  border: 1px solid #202428;
+}
+
+.sensor {
+  padding: 17px;
+
+  background: rgba(10, 15, 18, 0.78);
+}
+
+.sensor span {
+  display: block;
+
+  color: #666;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.sensor strong {
+  display: block;
+
+  margin-top: 9px;
+
+  font-size: 21px;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   ROOM CONTROLS
+   ========================================================= */
+
+.room-controls {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.control-button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 14px;
+
+  background: rgba(21, 24, 27, 0.88);
+
+  color: #777;
+
+  border: 1px solid #252a2f;
+  border-radius: 9px;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+.control-button span {
+  font-size: 15px;
+}
+
+.control-button b {
+  margin-left: auto;
+
+  color: #555;
+
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.control-button:hover:not(:disabled) {
+  border-color: #ff7a00;
+
+  color: #ffffff;
+}
+
+.control-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.control-button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+.control-active {
+  border-color: #ff7a00;
+
+  background: rgba(28, 23, 17, 0.92);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 0 16px rgba(255, 122, 0, 0.06);
+}
+
+.control-active b {
+  color: #ff7a00;
+}
+
+
+/* =========================================================
+   LIGHT EFFECT
+   ========================================================= */
+
+.light-icon {
+  display: inline-block;
+
+  transition: 0.3s;
+}
+
+.control-active .light-icon {
+  filter:
+    drop-shadow(0 0 7px #ffb52e)
+    drop-shadow(0 0 14px rgba(255, 181, 46, 0.45));
+
+  transform: scale(1.08);
+
+  animation: bulbGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes bulbGlow {
+  from {
+    filter:
+      drop-shadow(0 0 4px #ffd45a)
+      drop-shadow(0 0 8px #ffb300);
+  }
+
+  to {
+    filter:
+      drop-shadow(0 0 7px #fff0a0)
+      drop-shadow(0 0 16px #ffb300)
+      drop-shadow(0 0 24px rgba(255, 179, 0, 0.65));
+  }
+}
+
+
+/* =========================================================
+   FAN
+   ========================================================= */
+
+.fan-icon {
+  display: inline-block;
+}
+
+.fan-spinning {
+  animation: fanSpin 0.8s linear infinite;
+}
+
+@keyframes fanSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   HUMIDITY
+   ========================================================= */
+
+.humidity-sensor {
+  position: relative;
+}
+
+.humidity-bar {
+  width: 100%;
+  height: 3px;
+
+  margin-top: 12px;
+
+  overflow: hidden;
+
+  background: #1d2226;
+
+  border-radius: 10px;
+}
+
+.humidity-fill {
+  height: 100%;
+
+  background: #4f91ff;
+
+  border-radius: inherit;
+
+  transition: width 0.6s ease;
+}
+
+
+/* =========================================================
+   MOTION
+   ========================================================= */
+
+.motion-active {
+  border-color: #59421f !important;
+
+  background: #17130e !important;
+}
+
+.motion-indicator {
+  display: flex;
+
+  gap: 4px;
+
+  margin-top: 10px;
+}
+
+.motion-indicator span {
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #ff9d2e;
+
+  animation: motionPulse 1s infinite;
+}
+
+.motion-indicator span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.motion-indicator span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes motionPulse {
+  0%,
+  100% {
+    opacity: 0.25;
+
+    transform: scale(0.7);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: scale(1.2);
+  }
+}
+
+
+/* =========================================================
+   FLAME
+   ========================================================= */
+
+.flame-active {
+  border-color: #713030 !important;
+
+  background: #1b0d0d !important;
+}
+
+.flame-active strong {
+  color: #ff4d4d !important;
+
+  animation: flameText 0.8s infinite alternate;
+}
+
+@keyframes flameText {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.danger-value {
+  color: #ff4d4d !important;
+}
+
+
+/* =========================================================
+   ROOM FIRE DANGER
+   ========================================================= */
+
+.room-card-danger {
+  border-color: #713030 !important;
+
+  animation: roomDanger 1.5s infinite;
+}
+
+.room-danger {
+  border-color: #713030;
+
+  background: #181010;
+}
+
+.room-danger strong {
+  color: #ff4d4d;
+}
+
+@keyframes roomDanger {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(255, 60, 60, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 25px rgba(255, 60, 60, 0.08);
+  }
+}
+
+
+/* =========================================================
+   SIT-OUT
+   ========================================================= */
+
+.sitout-card {
+  display: flex;
+  align-items: center;
+
+  gap: 45px;
+
+  padding: 35px;
+
+  background: rgba(10, 15, 18, 0.80);
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+
+  backdrop-filter: blur(14px);
+}
+
+.sitout-visual {
+  width: 170px;
+  height: 170px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: rgba(11, 13, 15, 0.78);
+}
+
+.radar-ring {
+  position: relative;
+
+  width: 110px;
+  height: 110px;
+
+  border: 1px solid #33383d;
+
+  border-radius: 50%;
+}
+
+.radar-ring::before,
+.radar-ring::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid #252a2f;
+
+  border-radius: 50%;
+}
+
+.radar-ring::before {
+  width: 70px;
+  height: 70px;
+}
+
+.radar-ring::after {
+  width: 35px;
+  height: 35px;
+}
+
+.radar-dot {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 7px;
+  height: 7px;
+
+  transform: translate(-50%, -50%);
+
+  background: #555;
+
+  border-radius: 50%;
+}
+
+.sitout-info h2 {
+  margin-top: 8px;
+
+  font-size: 28px;
+}
+
+.sitout-info p {
+  margin-top: 7px;
+
+  color: #666;
+
+  font-size: 13px;
+}
+
+.sitout-status {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 18px;
+
+  color: #666;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.sitout-button {
+  margin-top: 22px;
+
+  min-width: 210px;
+}
+
+
+/* =========================================================
+   FIRE SAFETY
+   ========================================================= */
+
+.fire-panel {
+  margin-top: 25px;
+
+  padding: 28px;
+
+  background: rgba(10, 15, 18, 0.80);
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+
+  backdrop-filter: blur(14px);
+}
+
+.fire-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fire-header h2 {
+  margin-top: 8px;
+
+  font-size: 28px;
+}
+
+.safe-badge {
+  padding: 9px 13px;
+
+  border-radius: 20px;
+
+  background: #15191c;
+
+  color: #666;
+
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.fire-rooms {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+.fire-room {
+  padding: 20px;
+
+  background: rgba(11, 13, 15, 0.78);
+
+  border: 1px solid #202428;
+
+  border-radius: 10px;
+}
+
+.fire-room span {
+  color: #666;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.fire-room strong {
+  display: block;
+
+  margin-top: 10px;
+
+  font-size: 22px;
+
+  font-weight: 500;
+}
+
+.fire-message {
+  margin-top: 15px;
+
+  color: #555;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   FIRE ALARM
+   ========================================================= */
+
+.fire-panel.alarm-active {
+  border-color: #713030;
+
+  animation: alarmPulse 1.5s infinite;
+}
+
+.alarm-active {
+  border-color: #713030;
+
+  animation: alarmPulse 1.5s infinite;
+}
+
+.fire-panel.alarm-active .safe-badge,
+.alarm-active .safe-badge {
+  color: #ff5b5b;
+
+  background: #241313;
+}
+
+@keyframes alarmPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(255, 60, 60, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 25px rgba(255, 60, 60, 0.08);
+  }
+}
+
+.dismiss-button {
+  margin-top: 22px;
+
+  padding: 12px 18px;
+
+  background: #211416;
+
+  color: #ff6868;
+
+  border: 1px solid #713030;
+
+  border-radius: 8px;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.dismiss-button:hover {
+  background: #321719;
+
+  border-color: #a63c3c;
+}
+
+
+/* =========================================================
+   CONNECTION STATES
+   ========================================================= */
+
+.connection-badge.connected {
+  border-color: #263a2d;
+
+  color: #70a980;
+
+  background: rgba(12, 25, 18, 0.72);
+}
+
+.connection-badge.connected .status-dot {
+  background: #55c878;
+
+  box-shadow:
+    0 0 10px rgba(85, 200, 120, 0.5);
+
+  animation: connectionPulse 1.5s infinite;
+}
+
+@keyframes connectionPulse {
+  0%,
+  100% {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.45;
+
+    transform: scale(0.75);
+  }
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 70px;
+
+  padding: 25px 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: #444;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+  .app {
+    padding: 20px;
+  }
+
+  .hero {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 35px;
+  }
+
+  .hardware-panel {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 25px;
+  }
+
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .sitout-card {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .fire-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .fire-rooms {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  .connection-controls {
+    width: 100%;
+
+    flex-direction: column;
+  }
+
+  .connection-controls select,
+  .connect-button {
+    width: 100%;
+  }
+
+  .room-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    letter-spacing: -3px;
+  }
+
+  .hero {
+    padding-top: 50px;
+  }
+
+  .system-status {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+  .sitout-visual {
+    width: 130px;
+    height: 130px;
+  }
+}
+/* =========================================================
+   CURSOR GLOW
+   ========================================================= */
+
+/* =========================================================
+   FIRE SPARK CURSOR
+   ========================================================= */
+
+/* =========================================================
+   FLAME CURSOR TRAIL
+   ========================================================= */
+
+/* =========================================================
+   REAL FIRE / EMBER CURSOR EFFECT
+   ========================================================= */
+
+.cursor-ember {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  width: var(--ember-size);
+  height: var(--ember-size);
+
+  pointer-events: none;
+
+  z-index: 9999;
+
+  border-radius: 50%;
+
+  /*
+     Hot yellow-white center
+  */
+  background:
+    radial-gradient(
+      circle,
+      #fffbd1 0%,
+      #ffd45c 28%,
+      #ff8c00 55%,
+      rgba(255, 70, 0, 0) 100%
+    );
+
+  /*
+     Realistic ember glow
+  */
+  box-shadow:
+    0 0 3px #fff2a6,
+    0 0 7px #ffb300,
+    0 0 14px rgba(255, 90, 0, 0.8),
+    0 0 24px rgba(255, 60, 0, 0.35);
+
+  filter: blur(0.3px);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--ember-rotation));
+
+  animation:
+    emberRise
+    var(--ember-duration)
+    ease-out
+    forwards;
+}
+
+
+@keyframes emberRise {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.35)
+      rotate(var(--ember-rotation));
+
+  }
+
+
+  10% {
+
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1.15)
+      rotate(var(--ember-rotation));
+
+  }
+
+
+  35% {
+
+    opacity: 0.95;
+
+    transform:
+      translate(
+        calc(-50% + var(--ember-x) * 0.25),
+        calc(-50% + var(--ember-y) * 0.25)
+      )
+      scale(1);
+
+  }
+
+
+  65% {
+
+    opacity: 0.55;
+
+    transform:
+      translate(
+        calc(-50% + var(--ember-x) * 0.65),
+        calc(-50% + var(--ember-y) * 0.65)
+      )
+      scale(0.65);
+
+  }
+
+
+  100% {
+
+    opacity: 0;
+
+    transform:
+      translate(
+        calc(-50% + var(--ember-x)),
+        calc(-50% + var(--ember-y))
+      )
+      scale(0.05);
+
+  }
+
+}
+
+body:hover .cursor-glow {
+  opacity: 1;
+}
