@@ -187,6 +187,13 @@ The bridge should receive sensor telemetry and forward it to the backend. It sho
 
 The objective of this project is to demonstrate how embedded systems, IoT communication, cloud-connected services, and web technologies can work together to create a smart home environment with real-time monitoring, appliance control, and safety-oriented automation.
 
+## 👥 Contributors
+
+- **Atmihaa M B**
+- **Devpriya Jain**
+- **Kajal Baravkar**
+- **Isabel Joy**
+  
 ## 👥 Project Information
 
 **Project Title:** Smart Home Monitoring and Management System Using ESP32 and Arduino
