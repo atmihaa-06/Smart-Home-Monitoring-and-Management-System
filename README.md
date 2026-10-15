@@ -191,7 +191,7 @@ The objective of this project is to demonstrate how embedded systems, IoT commun
 
 - **Atmihaa M B**
 - **Devpriya Jain**
-- **Kajal Baravkar**
+- **Kajal Sandeep Baravkar**
 - **Isabel Joy**
   
 ## 👥 Project Information
