@@ -97,7 +97,7 @@ The embedded system combines sensor readings with device-control logic.
 - Motion sensors provide movement status for the monitored areas.
 - Flame detection supports safety-related responses, including switching off the affected room's light and fan and activating warning indicators where configured.
 - Humidity-based fan control can adjust fan operation according to the programmed thresholds.
-- The sit-out ultrasonic sensor provides distance-based detection.
+- The sit out ultrasonic sensor provides distance-based detection.
 
 The exact responses depend on the logic programmed into the microcontroller.
 
